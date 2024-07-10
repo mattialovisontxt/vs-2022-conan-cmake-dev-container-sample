@@ -30,3 +30,17 @@
 *.exe
 *.out
 *.app
+
+# Visual Studio
+**/.vs
+**/out
+**/bin
+
+/CMakeUserPresets.json
+
+# Common build directories
+**/build*/
+
+# Visual Studio Code
+/.vscode/
+/.cache/

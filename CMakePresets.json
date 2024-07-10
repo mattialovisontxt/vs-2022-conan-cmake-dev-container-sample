@@ -1,0 +1,194 @@
+{
+  "version": 5,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 24,
+    "patch": 0
+  },
+  "configurePresets": [
+    {
+      "name": "base-preset",
+      "hidden": true,
+      "cacheVariables": {
+        "SETTINGS_FILE": "${sourceDir}/.cmake/settings.cmake",
+        "REFLECTION_FILE": "${sourceDir}/.cmake/reflection.cmake"
+      }
+    },
+    {
+      "name": "conan-preset",
+      "hidden": true,
+      "cacheVariables": {
+        "CMAKE_PROJECT_TOP_LEVEL_INCLUDES": "${sourceDir}/.cmake/conan_provider.cmake"
+      }
+    },
+    {
+      "name": "base-linux-preset",
+      "hidden": true,
+      "inherits": [
+        "base-preset",
+        "conan-preset"
+      ],
+      "generator": "Ninja",
+      "cacheVariables": {
+      },
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Linux"
+      }
+    },
+    {
+      "name": "base-linux-container-preset",
+      "hidden": true,
+      "inherits": [
+        "base-linux-preset"
+      ],
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/out/$env{CONTAINER_NAME}/build/${presetName}",
+      "installDir": "${sourceDir}/out/$env{CONTAINER_NAME}/install/${presetName}",
+      "cacheVariables": {
+      },
+      "vendor": {
+        "microsoft.com/VisualStudioSettings/CMake/1.0": {
+          "hostOS": [ "Linux" ]
+        },
+        "microsoft.com/VisualStudioRemoteSettings/CMake/1.0": {
+          "copySources": false,
+          "sourceDir": "$env{HOME}/workspace"
+        }
+      },
+      "condition": {
+        "type": "equals",
+        "lhs": "$env{IS_CONTAINER}",
+        "rhs": "yes"
+      }
+    },
+    {
+      "name": "base-linux-remote-preset",
+      "hidden": true,
+      "inherits": [
+        "base-linux-preset"
+      ],
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/out/build/${presetName}",
+      "installDir": "${sourceDir}/out/install/${presetName}",
+      "cacheVariables": {
+      },
+      "vendor": {
+        "microsoft.com/VisualStudioSettings/CMake/1.0": {
+          "hostOS": [ "Linux" ]
+        },
+        "microsoft.com/VisualStudioRemoteSettings/CMake/1.0": {
+          "copySources": true,
+          "sourceDir": "$env{HOME}/.vs/$ms{projectDirName}",
+          "copyBuildOutput": true,
+          "copySourcesOptions": { "exclusionList": [ ".vs", ".git", "out", "vcpkg/packages/" ] }
+        }
+      },
+      "condition": {
+        "type": "notEquals",
+        "lhs": "$env{IS_CONTAINER}",
+        "rhs": "yes"
+      }
+    },
+    {
+      "name": "base-linux-x64-preset",
+      "hidden": true,
+      "toolset": { "value": "value" },
+      "vendor": {
+        "microsoft.com/VisualStudioSettings/CMake/1.0": {
+          "hostOS": [ "Linux" ],
+          "intelliSenseMode": "linux-gcc-x64"
+        }
+      }
+    },
+    {
+      "name": "base-linux-x86-preset",
+      "hidden": true,
+      "vendor": {
+        "microsoft.com/VisualStudioSettings/CMake/1.0": {
+          "hostOS": [ "Linux" ],
+          "intelliSenseMode": "linux-gcc-x86"
+        }
+      }
+    },
+    {
+      "name": "gcc-10-x64-release-remote",
+      "displayName": "x64 gcc Release",
+      "inherits": [
+        "base-linux-x64-preset",
+        "base-linux-remote-preset"
+      ],
+      "cacheVariables": {
+        "CONAN_HOST_PROFILE": "default;auto-cmake",
+        "CONAN_BUILD_PROFILE": "default;auto-cmake",
+        "CMAKE_BUILD_TYPE": "Release"
+      }
+    },
+    {
+      "name": "gcc-10-x64-debug-remote",
+      "displayName": "x64 gcc Debug",
+      "inherits": [
+        "base-linux-x64-preset",
+        "base-linux-remote-preset"
+      ],
+      "cacheVariables": {
+        "CONAN_HOST_PROFILE": "default;auto-cmake",
+        "CONAN_BUILD_PROFILE": "default;auto-cmake",
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    },
+    {
+      "name": "gcc-10-x64-release-container",
+      "displayName": "x64 gcc10 Release",
+      "inherits": [
+        "base-linux-x64-preset",
+        "base-linux-container-preset"
+      ],
+      "cacheVariables": {
+        "CONAN_HOST_PROFILE": "default;auto-cmake",
+        "CONAN_BUILD_PROFILE": "default;auto-cmake",
+        "CMAKE_BUILD_TYPE": "Release"
+      }
+    },
+    {
+      "name": "gcc-10-x64-debug-container",
+      "displayName": "x64 gcc10 Debug",
+      "inherits": [
+        "base-linux-x64-preset",
+        "base-linux-container-preset"
+      ],
+      "cacheVariables": {
+        "CONAN_HOST_PROFILE": "default;auto-cmake",
+        "CONAN_BUILD_PROFILE": "default;auto-cmake",
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "linux-x64-debug-remote",
+      "displayName": "Linux x64 gcc10 Debug",
+      "configurePreset": "gcc-10-x64-debug-remote",
+      "nativeToolOptions": []
+    },
+    {
+      "name": "linux-x64-release-remote",
+      "displayName": "Linux x64 gcc10 Release",
+      "configurePreset": "gcc-10-x64-release-remote",
+      "nativeToolOptions": []
+    },
+    {
+      "name": "linux-x64-debug-container",
+      "displayName": "Linux x64 gcc10 Debug",
+      "configurePreset": "gcc-10-x64-debug-container",
+      "nativeToolOptions": []
+    },
+    {
+      "name": "linux-x64-release-container",
+      "displayName": "Linux x64 gcc10 Release",
+      "configurePreset": "gcc-10-x64-release-container",
+      "nativeToolOptions": []
+    }
+  ]
+}
