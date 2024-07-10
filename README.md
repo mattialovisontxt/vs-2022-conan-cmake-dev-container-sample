@@ -1,0 +1,3 @@
+- Download the repo
+- Open the repo in VSCode or Visual Studio 2022 (selecting Dev-Container configuration)
+- Wait until the container build and CMake configure finish
