@@ -9,7 +9,6 @@ services:
     user: develop
     volumes:
       - debian-conan-cache:/home/develop/.conan2
-      - ~/.tokens:/.tokens:ro # :ro stands for read-only
       # Mounts the project folder to '/workspace'. The target path inside the container
       # should match what your application expects. In this case, the compose file is
       # in a sub-folder, so you will mount '..'. You would then reference this path as the
