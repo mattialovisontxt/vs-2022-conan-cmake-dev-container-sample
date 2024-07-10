@@ -10,7 +10,7 @@
       "name": "base-preset",
       "hidden": true,
       "cacheVariables": {
-        "SETTINGS_FILE": "${sourceDir}/.cmake/settings.cmake",
+        "SETTINGS_FILE": "${sourceDir}/.cmake/settings.cmake"
       }
     },
     {
