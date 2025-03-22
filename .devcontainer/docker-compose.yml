@@ -1,6 +1,3 @@
-version: "3.9"
-volumes:
-  debian-conan-cache:
 services:
   vs2022test:
     build:
@@ -8,7 +5,7 @@ services:
       dockerfile: Dockerfile
     user: develop
     volumes:
-      - debian-conan-cache:/home/develop/.conan2
+      - ~/bind-folder:/home/develop/.conan2
       # Mounts the project folder to '/workspace'. The target path inside the container
       # should match what your application expects. In this case, the compose file is
       # in a sub-folder, so you will mount '..'. You would then reference this path as the
