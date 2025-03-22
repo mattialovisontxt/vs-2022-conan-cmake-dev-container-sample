@@ -27,7 +27,7 @@ class nameRecipe(ConanFile):
             self.options.rm_safe("fPIC")
     
     def requirements(self):
-        self.requires("boost/1.85.0")
+        self.requires("fmt/11.1.4")
 
     def configure(self):
         if self.options.shared:

@@ -41,6 +41,6 @@ ENV CONTAINER_NAME="Debian-11"
 WORKDIR $HOME
 
 RUN mkdir $HOME/.conan2 && chown -R $USER_UID:$USER_GID $HOME/.conan2
-RUN pip3 install --no-cache-dir --user conan==2.5.0
+RUN pip3 install --no-cache-dir --user conan==2.14.0
 
 #CMD ["/bin/bash"]

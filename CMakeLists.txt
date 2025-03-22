@@ -11,7 +11,7 @@ project(${PROJECT}
 
 # External Dependecies
 find_package(Threads REQUIRED)
-find_package(Boost REQUIRED)
+find_package(fmt REQUIRED)
 
 # Define project name
 set(TARGET_NAME "TestSample")
@@ -35,7 +35,7 @@ set_target_properties(${TARGET_NAME}
 target_link_libraries(${TARGET_NAME}
     PUBLIC
         Threads::Threads
-        boost::boost
+        fmt::fmt
 )
 
 # Sources

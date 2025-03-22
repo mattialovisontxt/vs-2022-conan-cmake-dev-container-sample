@@ -3,6 +3,6 @@
 
 int main()
 {
-    boost::atomic_bool my_var = true;
-    std::cout << "My_var is " << (my_var ? "True" : "False") << std::endl;
+    double my_var = 3.0;
+    std::cout << fmt::format("Print varibale {}", my_var);
 }

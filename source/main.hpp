@@ -1,3 +1,3 @@
 #pragma once
 
-#include <boost/atomic.hpp>
+#include <fmt/core.h>
